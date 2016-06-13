@@ -2,9 +2,10 @@
 
     Module used to run validated commands. Imported from main.py.
 '''
+
+from operator import methodcaller
 from commandProcessing import interface
 from userInterface.formatOutput import formatOutput as print
-from operator import methodcaller
 
 def executeCommand(tokenized_input, token_pattern, objects):
     ''' Processes a valid input-pattern and executes command(s).'''
