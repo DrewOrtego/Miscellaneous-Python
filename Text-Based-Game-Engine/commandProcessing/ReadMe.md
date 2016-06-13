@@ -4,11 +4,6 @@
 * Use of pickle to save and load game objects to and from a file
 * Straight forward implementation of all valid in-game commands
 * Logical manner of tokenizing and validating user-input
-
-
-**Usage:**
-
-     Implemented by various modules throughout this project.
     
     
 **Purpose:**
