@@ -9,7 +9,7 @@
 
     Prints random quotes from Star Wars characters from the original trilogy.
 
-**Sample Usag:**
+**Sample Usage:**
 
      >>> import yodapy
      >>> Yoda = yodapy.quotes()
