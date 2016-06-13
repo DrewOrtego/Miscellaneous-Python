@@ -4,10 +4,9 @@
     mainipulates the console.) Note the lack of a class here.
 '''
 
+import textwrap, os, pickle
 from saveLoad import loadGame, saveGame
 from userInterface import helpMenu
-import textwrap, os, pickle
-from pprint import pprint
 from userInterface.formatOutput import formatOutput as print
 
 COPYRIGHT = ''' Text-based Game Demo v.1.0: The Fundamentals'''
