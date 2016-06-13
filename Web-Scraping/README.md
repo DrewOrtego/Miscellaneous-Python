@@ -1,9 +1,9 @@
 # Miscellaneous-Python/Web-Scraping
 
 **Demonstrates**
-* Use of the urllib module to make requests and process results
-*
-*
+* Use of the urllib module to make requests and examine the results
+* Uses error-catching to report issues with the results
+* Automatically creates unique file names to proceed with running given duplicate files
 
 **Usage:**
 
