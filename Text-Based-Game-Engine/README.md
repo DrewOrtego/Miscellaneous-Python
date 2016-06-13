@@ -1,31 +1,45 @@
-## Python 3.4 Text Based Game Engine
-<br>
-**This project is currently in development again!**
-<br>
-Coming soon:
-<br>
-1. More robust save/load feature.
-<br>
-2. Zork-like interface with room names and number of moves.
-<br>
-3. New demo!
-<br>
-Look for updates soon!
-<br>
-<br>
-**Description:**<br>
-The engine to a Zork-like text game-- written entirely in Python 3 (use **3.4!**)
-This particular version contains a simple demonstration of how to implement rooms, items, and simple commands into the game. There is also a "demo mode" in this code which you will be prompted to activate upon running the code. Try it, it's fun.
-<br>
-<br>
-**To Run:**<br>
-Simply run "main.py" in any interactive interpreter. (Be sure to use Python **3.4!**)
-<br>
-<br>
-**Just a Heads Up:**<br>
-This is still a work in progress, but should be complete soon. I'm always looking for writers who are interested in exploring what this type of interface can offer for story-telling, so please feel free to reach out to me if you're interestd in collaborating.
-<br>
-<br>
-**One Other Thing:**<br>
-If you enjoy this type of thing, and would like to play more games like it, Google "Zork" and look for the free online version of that amazing game. This game is based entirely off of Zork's interface, though it is still lacking a lot of Zork's robustness.
-<br>
+# Repo-Name
+
+**Demonstrates**
+* Object-oriented programming using Python 3
+* Organized and logical import commands with practical module design
+* Serializing Python objects to be saved to a text file and subsequently loaded back into the game
+* Use of the pickle, textwrap, collections.ordereddict, glob, os, and operator.methodcaller modules
+
+**Usage:**
+
+    Used for fun! It's a game, and can be used as learning tool, or used to 
+    design any number of games to play.
+    
+**Purpose:**
+
+    This is the engine to a Zork-like text game, but written entirely in Python 3.
+    I used this as a means to learn about object-oriented coding in Python, and
+    this is the result. The "Demonstrates" section summarizes what I learned.
+    
+**Work Flow:**
+
+    The game works with the following work flow in mind:
+    1. Get valid input from the user.
+    2. Implement changes to objects in the game, or print requested information.
+     
+    When you start a new game, all objects in the game-- items, rooms, the actor
+    (which is essentially the player), and the new game are all created. Those 
+    Python objects are then stored in a dict. This is the Object Map. The Object
+    Map is accessed by various modules to alter all aspects of the game as you 
+    play it. Say you want to "throw the book" at someone. When the game is given
+    this command-- and verifies that it is a valid command given the current
+    circumstances-- the book object is updated to reflect changes to it.
+    
+**Input:**
+
+    Simply run "main.py" in any interactive interpreter using Python 3.4 or later.
+     
+    Refer to the help.py file in the userInterface folder for more information.
+    If you're familiar with text-based games already, you should be comfortable
+    with what you find here.
+    
+**Output:**
+
+    You can create save files to save your game, otherwise all output is 
+    printed to the console as you play the game.
