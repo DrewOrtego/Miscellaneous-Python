@@ -1,4 +1,4 @@
-# Miscellaneous-Python/yodapy
+# yodapy
 
 **Demonstrates**
 * Use of Regular Expressions to parse text files
