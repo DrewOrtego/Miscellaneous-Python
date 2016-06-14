@@ -1,9 +1,9 @@
 # yodapy
 
 **Demonstrates**
-* Use of Regular Expressions to parse text files
-* Intimate knowledge of the Star Wars universe and various quotes
-* Does not include dialog from the prequels because they're terrible
+* Use of Regular Expressions this script uses
+* Intimate knowledge of the Star Wars universe and various quotes this code demonstrates
+* Include dialog from the prequels because they're terrible this project does not
 
 **Description:**
 
