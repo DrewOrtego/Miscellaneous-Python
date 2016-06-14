@@ -1,4 +1,4 @@
-# Miscellaneous-Python/Web-Scraping
+# Web-Scraping
 
 **Demonstrates**
 * Use of the urllib module to make requests and examine the results
