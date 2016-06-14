@@ -1,4 +1,4 @@
-# Miscellaneous-Python/Text-Based-Game-Engine
+# Text-Based-Game-Engine
 
 **Demonstrates**
 * Object-oriented programming using Python 3 (recommended use in 3.4 or later)
