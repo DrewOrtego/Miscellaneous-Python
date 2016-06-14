@@ -21,6 +21,7 @@
     The game works with the following work flow in mind:
     1. Get valid input from the user.
     2. Implement changes to objects in the game, or print requested information.
+    3. Repeat
      
     When you start a new game, all objects in the game-- items, rooms, the actor
     (which is essentially the player), and the new game are all created. Those 
@@ -29,6 +30,11 @@
     play it. Say you want to "throw the book" at someone. When the game is given
     this command-- and verifies that it is a valid command given the current
     circumstances-- the book object is updated to reflect changes to it.
+        
+    This work flow is repeated until the actor dies or the game is completed.
+    There's a lot more decision making that goes into this process, so check
+    out the various folders in this repository to see how I've organized the 
+    logic, and the purpose each set of modules serves.
     
 **Input:**
 
