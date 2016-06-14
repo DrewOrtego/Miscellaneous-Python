@@ -8,8 +8,7 @@
 
 **Usage:**
 
-    Used for fun! It's a game, and can be used as learning tool, or used to 
-    design any number of games to play.
+    Run "main.py" in any interactive interpreter using Python 3.4 or later.
     
 **Purpose:**
 
@@ -33,8 +32,6 @@
     
 **Input:**
 
-    Simply run "main.py" in any interactive interpreter using Python 3.4 or later.
-     
     Refer to the help.py file in the userInterface folder for more information.
     If you're familiar with text-based games already, you should be comfortable
     with what you find here.
