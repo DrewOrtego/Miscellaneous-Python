@@ -66,8 +66,8 @@ def executeCommand(tokenized_input, token_pattern, objects):
 
 def get_key(token):
     ''' In Python 3, dict.values() (along with dict.keys() and dict.items()) 
-        returns a view, rather than a list. See the documentation here. You 
-        therefore need to wrap your call to dict.values() in a call to list.'''
+        returns a view, rather than a list. Therefore, I've wrapped the
+        results of dict.values() in a list.'''
     return list(token.keys())[0]
 
 
