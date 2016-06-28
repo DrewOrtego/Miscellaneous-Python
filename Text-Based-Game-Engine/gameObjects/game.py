@@ -12,15 +12,6 @@ class Game:
         self.prompt_char = "\n> "
         self.tutorial_mode = None
         self.verbose_msg = True
-        
-    @property
-    def current_room(self):
-        return self._current_room
-        
-
-    @current_room.setter
-    def current_room(self, new_room):
-        self._current_room = new_room
 
             
     def print_header(self):

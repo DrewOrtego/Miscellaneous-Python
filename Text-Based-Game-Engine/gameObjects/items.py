@@ -6,6 +6,7 @@
     instead of keeping item specific instructions in the Item parent class.
 '''
 
+import os
 from gameObjects import events
 from userInterface.formatOutput import formatOutput as print
 
@@ -14,33 +15,35 @@ class Item:
         ''' The parent class for all item objects in the '''
         self.alias = '<Item ID>'
         self.adjective = []
-        self.can_contain = False # Allows other items to be held within itself.
+        self.can_contain = False # Allows other items to be held within itself
         self.contains = [] # Lists items contained withint the container-item
         self.containable = False # Used in <take_from>; True if it can be stored
-        self.contained = False # True if self is contained inside another item.
-        self.contains_item = False # True if the item contains another item.
+        self.contained = False # True if self is contained inside another item
+        self.contains_item = False # True if the item contains another item
         self.description = "<Item Description>"
-        self.dropped = False # True implies the item was <taken> at one point.
-        self.has_item = False # True implies something is placed on the item.
-        self.is_available = False
+        self.display_name = None # Used for room descriptions and look command
+        self.dropped = False # True implies the item was <taken> at one point
+        self.first_examine = True # True means this item has not been examined
+        self.has_item = False # True implies something is placed on the item
+        self.is_available = False 
         self.is_open = False # not closed!
-        self.is_taken = False # True if the item is in the actor's inventory.
-        self.name = ("<Item Name>", "<Item Name 2>")
-        self.location = "" # Name of room or item where the item stored.
-        self.placed = False # Used to indicate an item rests upon another item.
-        self.size = None # 1 = small, 2 = medium, 3 = venti.
-        self.takeable = False # Allows items to be added to actor's inventory.
-        self.visible = False # True if the item is printed by the <look> command
+        self.is_taken = False # True if the item is in the actor's inventory
+        self.name = ['<Item Name>', '<Item Name 2>']
+        self.location = "" # Name of room or item where the item is intialized
+        self.placed = False # Used to indicate an item rests upon another item
+        self.size = None # 1 = pocketable, 2 = carryable, 3 = stationary
+        self.takeable = False # Allows items to be added to actor's inventory
+        self.visible = False # True alerts player to presence of Item using look
 
 
     def ask(self, objects, noun=None):
-        print("The {0} doesn't seem to have much to say.".format(\
+        print("The {0} doesn't seem to have much to say about that.".format(\
             self.name[0]))
-        
+
 
     def ask_about(self, noun):
         self.ask(noun)
-        
+
 
     def ask_for(self, noun):
         self.ask(noun)
@@ -51,7 +54,18 @@ class Item:
             self.name[0]))
 
 
+    def destroy(self, objects):
+        ''' Removes the object from the game entirely. Searches all 
+            locations for the item.'''
+        for item_list in objects['Inventory'].values():
+            if self in item_list:
+                item_list.remove(self)
+                break
+
+
     def drop(self, objects):
+        ''' Remove the object from the actor's inventory and place it in the
+            current room's inventory.'''
         if self in objects['Inventory']['Actor']:
             objects['Inventory']['Actor'].remove(self)
             room_name = objects['CurrentRoom'].__class__.__name__
@@ -66,19 +80,24 @@ class Item:
     def eat(self, objects):
         print('''I don't think that the {} would agree with you.
             '''.format(self.name[0]))
-            
+
 
     def enter(self, objects):
         print('''There is no enterance here.''')
 
 
     def examine(self, objects):
+        self.first_examine = False
         print('''There doesn't seem to be anything particularly special
             about the {}.'''.format(self.name[0]))
         
 
     def exit(self, objects):
         print('''There is no exit here.''')
+    
+
+    def hit(self, objects):
+        print('''Come on, don't be like that.''')
         
 
     def hug(self, objects):
@@ -110,7 +129,8 @@ class Item:
 
 
     def place_inside(self, containing_item, objects):
-        ''' self is the item being placed inside the containing_item.'''
+        ''' Place an item inside a containing_item. Updates the inventory for 
+            the containing_item.'''
         if self.taken == False:
             print("You are not currently carrying the {0}".format(\
                 self.name[0]))
@@ -139,6 +159,8 @@ class Item:
                 
 
     def place_on(self, containing_item, objects):
+        ''' Similar to the place_inside function. Updates the inventory of an 
+            item to show that it is "holding" another item.'''
         if self.taken == False:
             message = "You are not currently carrying the {0}".format(self.name[0])
         elif containing_item.can_contain == False:
@@ -158,12 +180,6 @@ class Item:
             self.placed = True
             message = "The {0} is now on top of the {1}.".format(\
                 self.name[0], containing_item.name[0])
-
-            if self.name[0] == 'pawn' and containing_item.name[0] == 'board':
-                message += " A door to the east suddenly appears!"
-                events.pawn_on_board = True
-                objects['SecondRoom'].description += \
-                    ' A secret door has opened to the east.'
         print(message)
 
 
@@ -204,7 +220,7 @@ class Item:
         elif self in objects['Inventory']['Actor']:
             message = "You already have the {}.".format(self.name[0])
         elif self.contained or self.placed:
-            # Remove the item from the ITEM that contains it, add to inventory.
+            # Remove the item from the ITEM that contains it, add to inventory
             room_name = objects['CurrentRoom'].__class__.__name__
             for i in objects['Inventory'][room_name]:
                 if i.can_contain:
@@ -224,16 +240,6 @@ class Item:
             objects['Inventory'][room_name].remove(self)
             objects['Inventory']['Actor'].append(self)
             message = "You have taken the {}.".format(self.name[0])
-            
-        # Code to execute if the pawn is taken from the board (activates a room)
-        if objects['ChessPiece'] in objects['Inventory']['Actor']:
-            if events.pawn_on_board:
-                events.pawn_on_board = False
-                message += " The secret door slides shut."
-                objects['SecondRoom'].description = '''This room is completely 
-                    black, and the only source of light comes from the white 
-                    room to the south illuminating a chess board towards the 
-                    back of the room.'''
         print(message)
 
 
@@ -264,6 +270,7 @@ class Item:
         ''' Performs an action upon taking an item. Does nothing by default.'''
         pass
 
+
     def throw(self, objects):
         current_room_obj = objects['Game'].current_room.__class__.__name__
         if self in objects['Inventory']['Actor']:
@@ -271,7 +278,7 @@ class Item:
             self.drop()
         elif self in obj.inventory_map[current_room_obj]:
             print("You do not have the {}.".format(self.name[0]))
-            
+
 
     def use(self, objects):
         print('''How would you like to use the {}?'''.format(\
@@ -280,69 +287,220 @@ class Item:
 
     def x(self, objects):
         self.examine(objects)
-        
-        
+
+
 # ------------------------------------------------------------------------------
 # In-game items
 # ------------------------------------------------------------------------------
-class Cake(Item):
+class Booster(Item):
     def __init__(self):
         Item.__init__(self)
-        self.description = "A delicious-looking cake!"
-        self.name = ('cake',)
-        
-
-    def cut(self, objects):
-        print('''You have nothing that can cut the cake.''')
-        
-
-    def eat(self, objects):
-        print('''You enjoy the spoils of puzzle-solving by indulging in
-            a slice of the cake.''')
-        objects['Game'].win()
-        
-
-    def slice(self, objects):
-        print('''You have nothing with which you can slice the cake.''')
-        
-        
-class ChessBoard(Item):
-    def __init__(self):
-        Item.__init__(self)
+        self.adjective = ['magic', 'booster']
         self.can_contain = True
-        self.description = "A marble chess board."
+        self.display_name = ['"Magic: The Gathering" booster pack']
+        self.description = "A pack of Magic cards from the Eternal Masters set."
         self.first_examine = True
         self.has_item = False
-        self.name = ('board',)
-        self.location = "SecondRoom"
-        self.size = 2
-        
-
-    def examine(self, objects):
-        message = self.description
-        if events.pawn_on_board:
-            message += ' All the pieces of the chess board are now in place.'
-        else:
-            message += ' It is set up for a game, but a single pawn is missing.'
-        print(message)
-        
-        
-class ChessPiece(Item):
-    def __init__(self):
-        Item.__init__(self)
-        self.adjective = ['small',]
-        self.alias = 'piece'
-        self.containable = True
-        self.contained_in = ""
-        self.description = "A small, black, marble pawn from a chess set."
-        self.first_take = True
-        self.name = ('pawn',)
-        self.location = "SecondRoom"
+        self.name = ['pack']
+        self.opened = False
         self.size = 1
         self.takeable = True
         self.visible = True
-        
+
 
     def examine(self, objects):
-        print('''It's one of the black pawns from a chess board.''')
+        self.first_examine = False
+        self.display_name = ['"Eternal Masters" booster pack'] + \
+            self.display_name
+        print('''It's a booster pack of Eternal Masters, hot off the presses!
+            It is currently sealed. Who knows what cards could be found if it 
+            were to be opened?!''')
+
+
+    def open(self, objects):
+        print('''Your hands tremble slightly and you clasp the pack in both 
+            hands. You grab opposite ends of the pack and pull it apart to 
+            separate the seal at the top, and slowly you open the pack.''', 
+            await_input = "...Press any key to build suspense...")
+        print('''The foil makes a distinct crinkling noise as you pull it apart,
+            revealing the face of the first card in the pack. You hurriedly flip
+            through the common cards to unmask some delightful uncommons, and 
+            with bated breath you prepare to reveal the rare.''', 
+            await_input = "...Press any key to intensify the suspense...")
+        print('''You reveal the rare to be a... Winter Orb. I guess you can put
+            that into an EDH deck if you want to alienate your play group. Oh 
+            well.''', 
+            await_input = "...Press any key to move on with your life.")
+        print('''But wait, isn't there a foil in each pack of Eternal Masters? 
+            You look behind the Winter Orb and see the edge of a blue, foil 
+            card. Revealing it yields a Jace, The Mind Sculptor! You gasp as it 
+            dawns on you that you can buy 3 or 4 regular Jace cards by selling 
+            this one! However, this isn't yours, you found it here on the table,
+            unguarded. Perhaps you should find the original owner?''',
+            await_input = "...Press any key to test your morality.")
+        print('''Will you choose to keep the card, or search for the true 
+            owner?''')
+        choice = input("keep or search? > ")
+        while choice !=  'keep' and choice != 'search':
+            os.system('cls')
+            print('''You can keep the card, or search for the original 
+                owner.''')
+            choice = input("keep or search? > ")
+        if choice == 'keep':
+            message = '''You choose to keep the card for yourself. Just as you 
+                begin to slip it into your pocket, a co-worker walks in and sees
+                you. "JACE THIEF!!!", he shrieks. You try to explain the 
+                situation, but it's too late: the Magic Judge's have arrived, 
+                and faster than you can say "Tarmagoyf" you're taking a bean bag 
+                shot to the gut. You spend the night in the Wizard's basement 
+                dungeon, with no Jace. Tomorrow you will be permabanned from all
+                tournaments and incessantly discussed on Reddit's MagicTCG 
+                page.'''
+            objects['Actor'].game_over(message)
+        elif choice == 'search':
+            print('''You decide to seek the try owner of the card and let him or
+                her know of the bounty to be had! The card is now in your 
+                inventory.''')
+            objects['Inventory']['Actor'].append(objects['Items']['Card'])
+            self.destroy(objects)
+            self.opened = True
+
+
+class Card(Item):
+    def __init__(self):
+        Item.__init__(self)
+        self.adjective = ['magic']
+        self.description = "It's a Magic card entitled 'Drew, The Job Seeker!'"
+        self.display_name = ['card']
+        self.first_examine = True
+        self.name = ['card']
+        self.size = 1
+        self.takeable = True
+        self.visible = True
+
+
+    def eat(self, objects):
+        print('''That would be the most expensive meal you've eaten in years! 
+            You probably shouldn't do that.''')
+
+
+    def examine(self, objects):
+        self.first_examine = False
+        self.name = ['magic card'] + self.name
+        print('''It's a Magic: The Gathering card entitled "Jace, The Mind 
+            Sculptor". It looks to be in mint condition. Judging from all the
+            text on it, it's probably somewhat valuable.''')
+
+
+    def read(self, objects):
+        print('''+2: Look at the top card of target player's library. You may 
+            put that card on the bottom of that player's library. 0: Draw three
+            cards, then put two cards from your hand on top of your library in 
+            any order. −1: Return target creature to its owner's hand. −12: 
+            Exile all cards from target player's library, then that player 
+            shuffles his or her hand into his or her library.''')
+
+
+class DoorOne(Item):
+    def __init__(self):
+        Item.__init__(self)
+        self.adjective = ['glass']
+        self.description = "The glass door which leads to the hallway."
+        self.display_name = ['door']
+        self.first_examine = True
+        self.has_item = False
+        self.is_open = False
+        self.name = ['door',]
+        self.size = 3
+        self.visible = False
+
+
+    def examine(self, objects):
+        self.first_examine = False
+        self.display_name = ['glass door'] + self.display_name
+        print('''An ordinary glass door, nothing special.''')
+
+
+    def open(self, objects):
+        ''' Allow door to open if the booster pack has been opened'''
+        if self.is_open:
+            print('''The door is already open.''')
+        elif objects['Booster'].opened:
+            self.is_open = True
+            print('''You open the door.''')
+        else:
+            print('''Don't tempt yourself. You were told to stay put, 
+                and you really shouldn't leave without a good reason.''')
+
+
+    def close(self, objects):
+        ''' Allow door to open if the booster pack has been opened'''
+        if objects['Booster'].is_open == False:
+            print('''The door is already closed, as it should be, unless you
+                have something important to do.''')
+        elif self.is_open == False:
+            print('''The door is already closed.''')
+        else:
+            print('''You close the door.''')
+            self.is_open = False
+
+
+class DoorTwo(Item):
+    def __init__(self):
+        Item.__init__(self)
+        self.adjective = []
+        self.description = "A door which leads to the locked room."
+        self.display_name = ['door']
+        self.first_examine = True
+        self.has_item = False
+        self.is_open = False
+        self.name = ['door',]
+        self.size = 3
+        self.visible = False
+
+
+class Resume(Item):
+    def __init__(self):
+        Item.__init__(self)
+        self.adjective = []
+        self.can_contain = True
+        self.description = "A very nice looking, well-formatted resume."
+        self.display_name = ['resume']
+        self.first_examine = True
+        self.has_item = False
+        self.name = ['resume',]
+        self.size = 1
+        self.takeable = True
+        self.visible = True
+
+
+    def read(self, objects):
+        print('''The resume says...''')
+
+
+    def examine(self, objects):
+        self.first_examine = False
+        print('''This looks to be the resume of one "Andrew Ortego". Just look
+            at all that experience!''')
+
+
+class Table(Item):
+    def __init__(self):
+        Item.__init__(self)
+        self.adjective = ['large', 'ikea']
+        self.can_contain = False
+        self.description = "A large table used for meetings."
+        self.display_name = ['large table']
+        self.first_examine = True
+        self.has_item = False
+        self.name = ['table']
+        self.size = 3
+        self.takeable = False
+        self.visible = False
+
+
+    def examine(self, objects):
+        self.first_examine = False
+        self.display_name = ['large Ikea table'] + self.name
+        print('''It's from Ikea! No expense was spared!''')
 

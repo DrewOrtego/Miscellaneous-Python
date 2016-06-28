@@ -19,10 +19,12 @@ def printHeader():
     print('-' * 70, '\n')
 
 
-def formatOutput(*message, newline=False):
+def formatOutput(*message, await_input = ""):
     ''' Formats the output of an on-screen message to fit the screen width.
         Also calculates the number of rows to write on-screen and ensure that
-        the prompt is always in the same place.'''
+        the prompt is always in the same place.
+        <Press any button to continue> functionality can be achieved by 
+        sending a string to the await_input parameter.'''
     #input() # DBUG allows tester to see any messages being overwritten
     os.system('cls')
     printHeader()
@@ -32,6 +34,7 @@ def formatOutput(*message, newline=False):
         split_msg = " ".join(m.split())
     rows = math.ceil(message_length/70)
     print(textwrap.fill(split_msg, 70)) # Hard code width for now
-    for r in range(1, 7-rows):
+    for r in range(1, 10-rows):
         print('')
-
+    if await_input != "":
+        input(await_input)

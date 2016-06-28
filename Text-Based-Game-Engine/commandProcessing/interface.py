@@ -69,23 +69,7 @@ def l(objects):
 def load(objects):
     ''' Loads a game state from a save file.'''
     loadGame.loadPrompt()
-
-
-def look(objects):
-    ''' Prints the current room's description, and any available items.'''
-    msg = objects['CurrentRoom'].description
-    room_class = objects['CurrentRoom'].__class__.__name__
-    for i in objects['Inventory'][room_class]:
-        if i.visible:
-            msg += (' There is a {} here.'.format(i.name[0]))
-        if i.contains_item:
-            stored_item = objects['Inventory'][room_class]
-            if stored_item.visible:
-                msg += (' There is a {} inside the {}.'.format(\
-                    stored_item.name[0],
-                    i.name[0]))
-    print(msg)
-
+    
 
 def moves(objects):
     ''' Displays the number of successful moves that have been made.'''

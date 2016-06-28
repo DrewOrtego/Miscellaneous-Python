@@ -15,7 +15,9 @@
     is used in more than one instance. That should be safe, I think...
 '''
 
-verbs = ( # Actions that can be performed with items.
+verbs = (
+    # Actions that can be performed with items.
+    
     # A --------------------------------
     'ask',
 
@@ -27,9 +29,12 @@ verbs = ( # Actions that can be performed with items.
 
     # E --------------------------------
     'eat', 'enter', 'examine', 'exit',
+
+    # G --------------------------------
+    'give',
     
     # H --------------------------------
-    'hug',
+    'hit', 'hug',
     
     # K --------------------------------
     'kiss',
@@ -62,26 +67,41 @@ verbs = ( # Actions that can be performed with items.
     'x',
     )
 
-nouns = ( # Items that used for interactions.
+nouns = (
+    # Items that used for interactions.
+
     # B --------------------------------
-    'board',
-    
+    'booster',
+
     # C --------------------------------
-    'cake',
-    
+    'card',
+
+    # D --------------------------------
+    'door',
+
+    # T --------------------------------
+    'table',
+
+    # J --------------------------------
+    'jace',
+
     # P --------------------------------
-    'pawn',
+    'pack',
+
+    # R --------------------------------
+    'resume',
     )
 
-directions = ( # Directions and their shortcuts
+directions = (
+    # Directions and their shortcuts
     'north', 'east', 'south', 'west', 'n','e','s','w',
-
     'northeast', 'southeast', 'southwest', 'northwest', 'ne','se','sw','nw',
-
     'up', 'down', 'u', 'd',
     )
 
-interface = ( # Commands stored in the game module.
+interface = (
+    # Commands stored in the game module.
+
     # B --------------------------------
     'b', 'brief',
 
@@ -110,7 +130,9 @@ interface = ( # Commands stored in the game module.
     'v', 'verbose',
     )
 
-combine = ( # Verbs used in conjuntion with other verbs, and using two items.
+combine = (
+    # Verbs used in conjuntion with other verbs, and using two items.
+
     # A --------------------------------
     'about',
 
@@ -124,7 +146,9 @@ combine = ( # Verbs used in conjuntion with other verbs, and using two items.
     'on',
     )
 
-preposition = ( # Commands that are ignored; parsed out of a valid phrase.
+preposition = (
+    # Commands that are ignored; parsed out of a valid phrase.
+
     # A --------------------------------
     'a', 'at',
 
@@ -132,8 +156,33 @@ preposition = ( # Commands that are ignored; parsed out of a valid phrase.
     'the',
     )
 
-adjectives = ( # Used to descibe items (e.g. take the small pawn)
-    # S --------------------------------
-    'small',
+adjectives = ( 
+    # Used to descibe items (e.g. take the small pawn)
+    # Found in the 'adjective' attribute of an item.
+
+    # B --------------------------------
+    'booster',
+
+    # G --------------------------------
+    'glass',
+
+    # I --------------------------------
+    'ikea',
+    
+    # J --------------------------------
+    'jace',
+
+    # L --------------------------------
+    'large',
+
+    # M --------------------------------
+    'magic',
+    )
+
+npcs = (
+    # Names of all non-playable characters
+
+    # D --------------------------------
+    'drew',
     )
 

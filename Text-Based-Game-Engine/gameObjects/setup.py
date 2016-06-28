@@ -5,43 +5,60 @@
     game is played.
 '''
 
-
-from gameObjects import actor, game, items, rooms
+from gameObjects import actor, game, items, rooms, npcs
 
 # Initialize all objects at the start of the game
 current_game  = game.Game()
 current_actor = actor.Actor()
 
 # rooms ----------------------------------
-first_room  = rooms.FirstRoom()
-second_room = rooms.SecondRoom()
-third_room = rooms.ThirdRoom()
+interview_room  = rooms.InterviewRoom()
+hallway         = rooms.Hallway()
+office_space_n  = rooms.OfficeSpaceNorth()
+office_space_s  = rooms.OfficeSpaceSouth()
+locked_room     = rooms.LockedRoom()
 
 # items ----------------------------------
-cake = items.Cake()
-chess_board = items.ChessBoard()
-chess_piece = items.ChessPiece()
+card    = items.Card()
+door1   = items.DoorOne()
+door2   = items.DoorTwo()
+resume  = items.Resume()
+booster = items.Booster()
+table   = items.Table()
+
+# npcs -----------------------------------
+drew = npcs.Drew()
 
 # Store references to the objects that are used throughout the game
 objects = {
-    # Used to save data
-    'CurrentRoom': first_room,
+    'CurrentRoom': interview_room,
     'Game': current_game,
     'Actor': current_actor,
-    'FirstRoom': first_room,
-    'SecondRoom': second_room,
-    'ThirdRoom': third_room,
-    'Cake': cake,
-    'ChessBoard': chess_board,
-    'ChessPiece': chess_piece,
-    
+    'Rooms': {
+        'InterviewRoom': interview_room,
+        'Hallway': hallway,
+        'LockedRoom': locked_room,
+        'OfficeSpaceNorth': office_space_n,
+        'OfficeSpaceSouth': office_space_s,
+    },
+    'Items': {
+        'Card': card,
+        'Resume': resume,
+        'Booster': booster,
+        'Table': table,
+        'DoorOne': door1,
+        'DoorTwo': door2,
+    },
+    'Npcs': {
+        'Drew': drew,
+    },
     'Inventory': {
         'Actor': [],
-        # Rooms --------------------------------------
-        'FirstRoom': [],
-        'SecondRoom': [chess_board, chess_piece,],
-        'ThirdRoom': [cake,],
-        # Items --------------------------------------
-        'ChessBoard': [],
-    }
+        'InterviewRoom': [booster, resume, table, door1],
+        'Hallway': [door1, door2],
+        'OfficeSpaceNorth': [],
+        'OfficeSpaceSouth': [drew],
+        'LockedRoom': [door2],
+        'Drew': [],
+    },
 }

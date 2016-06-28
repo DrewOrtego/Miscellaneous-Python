@@ -3,6 +3,8 @@
     Allows the player to save the current game state to a file. Prompts the user
     for a file name and verifies that the file name does not already exist. If 
     so, the file will not be saved.
+
+    Saves the setup.objects dict to a file.
 '''
 
 import os, pickle, glob

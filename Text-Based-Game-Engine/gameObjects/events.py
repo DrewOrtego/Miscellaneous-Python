@@ -9,4 +9,5 @@
 #
 # Also also's the game to check various states to determine what action to take.
 # ------------------------------------------------------------------------------
-pawn_on_board = False
+
+meet_drew = False

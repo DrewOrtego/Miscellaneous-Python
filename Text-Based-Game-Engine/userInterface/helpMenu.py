@@ -41,11 +41,12 @@ Southeast, Southwest, Northwest, up or climb, down, enter, exit.'''
 
     print("INTERFACE")
     print("Brief, Help, Inventory, Load, Moves, Prompt, Save, \
-        Quit, Verbose.\n")
+Quit, Verbose.\n")
 
     print("ITEM COMMANDS")
     print("Use item_1 with item_2, Place/Put item_1 In/On/Inside \
-        item_2, Ask item_1 About item_2, Remove item_1 From item_2\n")
+item_2,")
+    print("Ask item_1 About item_2, Remove item_1 From item_2\n")
 
     print("IGNORED WORDS")
     print('''A, At, The.''')

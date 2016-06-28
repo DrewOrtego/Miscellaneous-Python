@@ -1,8 +1,8 @@
 ''' loadGame.py
 
     Provides functionality to load a game from a save file. This takes a 
-    serialized file and copies its contents into the 'objects' dict found in
-    setup.py. This dict is utilzied by the game loop in main.py when calling
+    serialized file and copies its contents into the setup.objects dict.
+    This dict is utilzied by the game loop in main.py when calling
     various functions in the program.
 '''
 

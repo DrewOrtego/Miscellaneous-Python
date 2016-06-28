@@ -17,22 +17,22 @@ def getObjects():
     return setup.objects
 
 
-def gameLoop():
+def gameLoop(objects):
     ''' Main game loop. Executes while the Actor is still alive.
         Get the user's input, create tokens out of it, and process it.'''    
     user_input = [word for word in input(objects['Game'].prompt_char).split()]
     if user_input:
         tokenized_input = tokenizer.get_token(user_input)
-        if 'error' not in tokenized_input[0].keys():
+        if 'unknown_word' not in tokenized_input[0].keys():
             valid_pattern = tokenizer.pattern_match(tokenized_input)
             if valid_pattern:
-                tokens = (tokenized_input, valid_pattern, objects)
-                processInput.executeCommand(*tokens)
+                processInput.executeCommand(tokenized_input, 
+                    valid_pattern, objects)
             else:
                 print("I didn't understand that sentence.")
         else:
             print("I don't recognize the word {0}.".format(
-                tokenized_input[0]['error']))
+                tokenized_input[0]['unknown_word']))
     else:
         print("Pardon?")
 
@@ -40,10 +40,10 @@ def gameLoop():
 if __name__ == "__main__":
     ''' Loads the objects dict from setup to begin the loop, and loads it 
         again once the loop begins. This allows the load functionality to
-        work properly.'''
+        work properly as the game loops.'''
     objects = getObjects()
-    interface.look(objects)
+    objects['CurrentRoom'].look(objects)
     while(objects['Actor'].dead == False):
         objects = getObjects()
-        gameLoop()
+        gameLoop(objects)
 
