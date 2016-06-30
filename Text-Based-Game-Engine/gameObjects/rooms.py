@@ -19,24 +19,62 @@ class Room:
 
 
     def   up(self, objects) : return {'message' : self.default_direction}
+
+
     def down(self, objects) : return {'message' : self.default_direction}
+
+
     def north(self, objects): return {'message' : self.default_direction}
+
+
     def  east(self, objects): return {'message' : self.default_direction}
+
+
     def south(self, objects): return {'message' : self.default_direction}
+
+
     def  west(self, objects): return {'message' : self.default_direction}
+
+
     def northeast(self, objects): return {'message' : self.default_direction}
+
+
     def southeast(self, objects): return {'message' : self.default_direction}
+
+
     def southwest(self, objects): return {'message' : self.default_direction}
+
+
     def northwest(self, objects): return {'message' : self.default_direction}
+
+
     def  u(self, objects): return self.up(objects)
+
+
     def  d(self, objects): return self.down(objects)
+
+
     def  n(self, objects): return self.north(objects)
+
+
     def  e(self, objects): return self.east(objects)
+
+
     def  s(self, objects): return self.south(objects)
+
+
     def  w(self, objects): return self.west(objects)
+
+
     def ne(self, objects): return self.northeast(objects)
+
+
     def se(self, objects): return self.southeast(objects)
+
+
     def sw(self, objects): return self.southwest(objects)
+
+
     def nw(self, objects): return self.northwest(objects)
 
 
@@ -44,10 +82,11 @@ class Room:
         ''' Prints the current room's description, and any available items.'''
         msg = objects['CurrentRoom'].description
         current_room = objects['CurrentRoom'].__class__.__name__
-        visible_items = [i for i in objects['Inventory'][current_room] 
-            if type(i).__name__ in objects['Items'] and i.visible]
+        visible_items = [
+            i for i in objects['Inventory'][current_room] 
+            if i.visible
+        ]
         for i in visible_items:
-
             # For 1 item
             if i.visible and len(visible_items) == 1:
                 msg += (' There is a {} here.'.format(i.name[0]))
@@ -76,11 +115,11 @@ class Room:
                         stored_item.name[0],
                         i.name[0]))
 
-        ## For any NPC(s) found in the room.
-        visible_npcs = [n for n in objects['Inventory'][current_room]
-            if type(n).__name__ in objects['Npcs'] and n.visible]
+        visible_npcs = [
+            n for n in objects['Npc_Location'][current_room]
+            if n.visible
+        ]
         for n in visible_npcs:
-
             # For 1 npc
             if n.visible and len(visible_npcs) == 1:
                 msg += (' {} is here.'.format(n.name[0]))
@@ -120,7 +159,7 @@ class InterviewRoom(Room):
             return {'message': '''You were told to stay put, and you really
                 shouldn't leave without a good reason.'''}
 
-
+"""
     def look(self, objects):
         ''' Prints the current room's description, and any available items.'''
         msg = objects['CurrentRoom'].description
@@ -184,7 +223,7 @@ class InterviewRoom(Room):
                 else:
                     msg += (' and {} are here.'.format(n.name[0]))
         print(msg)
-
+"""
 
 class Hallway(Room):
     def __init__(self):

@@ -70,9 +70,9 @@ class Item:
             objects['Inventory']['Actor'].remove(self)
             room_name = objects['CurrentRoom'].__class__.__name__
             objects['Inventory'][room_name].append(self)
-            print("You have dropped the {}.".format(self.name[0]))
             self.is_taken = False
             self.dropped = True
+            print("You have dropped the {}.".format(self.name[0]))
         else:
             print("You are not carrying the {}.".format(self.name[0]))
 

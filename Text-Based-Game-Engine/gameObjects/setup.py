@@ -57,8 +57,16 @@ objects = {
         'InterviewRoom': [booster, resume, table, door1],
         'Hallway': [door1, door2],
         'OfficeSpaceNorth': [],
-        'OfficeSpaceSouth': [drew],
+        'OfficeSpaceSouth': [],
         'LockedRoom': [door2],
         'Drew': [],
     },
+    'Npc_Location': {
+        'Actor': [],
+        'InterviewRoom': [],
+        'Hallway': [],
+        'OfficeSpaceNorth': [],
+        'OfficeSpaceSouth': [drew],
+        'LockedRoom': [],
+    }        
 }

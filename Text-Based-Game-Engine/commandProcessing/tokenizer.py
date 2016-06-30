@@ -13,7 +13,7 @@ valid_patterns = ( # Globally accessible to pattern_match and process_tokens
     ['direction'],
     ['interface'],
     ['noun'],
-    ['npc'], # TODO
+    ['npc'],
     ['verb'],
 
     ['adjective', 'noun'],
@@ -21,12 +21,12 @@ valid_patterns = ( # Globally accessible to pattern_match and process_tokens
     ['verb', 'direction'],
     ['verb', 'noun'],
     ['verb', 'adjective'],
-    ['verb', 'npc'],  #TODO
+    ['verb', 'npc'],
 
     ['verb', 'adjective', 'noun'],
     ['verb', 'noun', 'adjective'],
-    ['verb', 'noun', 'npc'],  #TODO
-    ['verb', 'npc', 'noun'],  #TODO
+    ['verb', 'noun', 'npc'],
+    ['verb', 'npc', 'noun'], 
     ['verb', 'preposition', 'noun'],
 
     ['verb', 'adjective', 'noun', 'npc'],  #TODO
@@ -49,13 +49,13 @@ def get_token(user_input):
     for word in user_input:
         word = word.lower()
         if   word in c.adjectives:  tokenized_words.append({'adjective':word})
-        elif word in c.verbs:       tokenized_words.append({'verb':word})
-        elif word in c.nouns:       tokenized_words.append({'noun':word})
-        elif word in c.directions:  tokenized_words.append({'direction':word})
         elif word in c.combine:     tokenized_words.append({'combine':word})
+        elif word in c.directions:  tokenized_words.append({'direction':word})
         elif word in c.interface:   tokenized_words.append({'interface':word})
-        elif word in c.preposition: tokenized_words.append({'preposition':word})
+        elif word in c.nouns:       tokenized_words.append({'noun':word})
         elif word in c.npcs:        tokenized_words.append({'npc':word})
+        elif word in c.preposition: tokenized_words.append({'preposition':word})
+        elif word in c.verbs:       tokenized_words.append({'verb':word})
         else: return [{'unknown_word':word}]
     return tokenized_words
 
