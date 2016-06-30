@@ -126,8 +126,11 @@ def is_available(noun, objects):
     for i in objects['Inventory']['Actor']:
         if noun in i.name or noun in i.adjective:
             return i
-    else:
-        return None
+    for i in objects['Npc_Location'][room_name]:
+        for n in objects['Inventory'][i.__class__.__name__]:
+            if noun in n.name or noun in n.adjective:
+                return n
+    return None
 
 
 def is_present(npc, objects):
@@ -290,12 +293,12 @@ def token_verb_noun_npc(tokenized_input, objects):
     npc_obj  = is_present(npc_cmd, objects)
     if noun_obj:
         if npc_obj:
-            command = methodcaller(verb_cmd, noun_obj, objects)
+            command = methodcaller(verb_cmd, objects, noun_obj)
             command(npc_obj)
         else:
             print('''There's no one here by that name.''')
     else:
-        print('''There is no {0} here.'''.format(noun_obj))
+        print('''There is no {0} here.'''.format(noun_cmd))
 
 
 def token_verb_npc_noun(tokenized_input, objects):
@@ -307,12 +310,12 @@ def token_verb_npc_noun(tokenized_input, objects):
     npc_obj  = is_present(npc_cmd, objects)
     if noun_obj:
         if npc_obj:
-            command = methodcaller(verb_cmd, noun_obj, objects)
+            command = methodcaller(verb_cmd, objects, noun_obj)
             command(npc_obj)
         else:
             print('''There's no one here by that name.''')
     else:
-        print('''There is no {0} here.'''.format(noun_obj))
+        print('''There is no {0} here.'''.format(noun_cmd))
 
 
 def token_noun_verb(tokenized_input, objects):

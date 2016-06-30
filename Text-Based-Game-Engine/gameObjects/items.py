@@ -213,6 +213,10 @@ class Item:
         self.take_from(containing_item)
 
 
+    def talk(self, objects):
+        print('''The {0} doesn't have much to say.'''.format(self.name[0]))
+
+
     def take(self, objects):
         message = "You shouldn't see this message... item.py take function"
         if not self.takeable:

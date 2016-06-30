@@ -70,3 +70,4 @@ objects = {
         'LockedRoom': [],
     }        
 }
+

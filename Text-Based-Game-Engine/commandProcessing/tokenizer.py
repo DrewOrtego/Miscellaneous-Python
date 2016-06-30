@@ -8,37 +8,48 @@
 
 from commandProcessing import commands as c
 
-valid_patterns = ( # Globally accessible to pattern_match and process_tokens
-    ['adjective'],
-    ['direction'],
-    ['interface'],
-    ['noun'],
-    ['npc'],
-    ['verb'],
+valid_patterns = (
+    # TO BE REMOVED
+    ['adjective'], # REMOVE
+    ['verb', 'adjective'], # REMOVE
+    ['verb', 'noun', 'adjective'], # REMOVE
+    #--------------------------------------
 
-    ['adjective', 'noun'],
-    ['noun', 'verb'],
-    ['verb', 'direction'],
-    ['verb', 'noun'],
-    ['verb', 'adjective'],
-    ['verb', 'npc'],
+    ['direction'], # ex. north
+    ['interface'], # ex. help
+    ['noun'], # ex. fish
+    ['npc'], # ex. aquaman
+    ['verb'], # ex. eat
 
+    ['noun', 'verb'], # ex. fish eat
+    ['verb', 'direction'], # ex. move north
+    ['verb', 'noun'], # ex. eat fish
+    ['verb', 'npc'], # ex. hug aquaman
+
+    ['verb', 'noun', 'npc'], # ex. give aquaman fish
+    ['verb', 'npc', 'noun'], # ex. give fish aquaman
+    ['verb', 'preposition', 'noun'], # ex. give a fish
+
+    ['verb', 'noun', 'combine', 'noun'], # ex. give fish to aquaman
+    ['verb', 'preposition', 'preposition', 'noun'], # ex. look at a fish 
+
+    ['verb', 'preposition', 'noun', 'combine', 'noun'], # ex. give a fish to aquaman
+    ['verb', 'noun', 'combine', 'preposition', 'noun'], # ex. give fish to the ocean
+
+    ['verb', 'preposition', 'noun', 'combine', 'preposition', 'noun'] # ex. give the fish to the ocean
+
+    # Any noun-pattern is also executable when an adjective preceeds the noun
+    ['adjective', 'noun'], # ex. slippery fish
+    ['adjective', 'noun', 'verb'], # TODO
     ['verb', 'adjective', 'noun'],
-    ['verb', 'noun', 'adjective'],
-    ['verb', 'noun', 'npc'],
-    ['verb', 'npc', 'noun'], 
-    ['verb', 'preposition', 'noun'],
-
-    ['verb', 'adjective', 'noun', 'npc'],  #TODO
-    ['verb', 'noun', 'combine', 'noun'],
-    ['verb', 'npc', 'adjective', 'noun'],  #TODO
+    ['verb', 'adjective', 'noun', 'npc'],  # TODO
+    ['verb', 'npc', 'adjective', 'noun'],  # TODO
     ['verb', 'preposition', 'adjective', 'noun'],
-    ['verb', 'preposition', 'preposition', 'noun'],
-
-    ['verb', 'preposition', 'noun', 'combine', 'noun'],
-    ['verb', 'noun', 'combine', 'preposition', 'noun'],
-    
-    ['verb', 'preposition', 'noun', 'combine', 'preposition', 'noun']
+    ['verb', 'adjective', 'noun', 'combine', 'adjective', 'noun'], # TODO
+    ['verb', 'preposition', 'preposition', 'adjective', 'noun'], # TODO
+    ['verb', 'preposition', 'adjective', 'noun', 'combine', 'adjective', 'noun'], # TODO
+    ['verb', 'adjective', 'noun', 'combine', 'preposition', 'adjective', 'noun'], # TODO
+    ['verb', 'preposition', 'adjective', 'noun', 'combine', 'preposition', 'adjective', 'noun'] # TODO
 )
 
 def get_token(user_input):
