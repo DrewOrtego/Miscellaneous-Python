@@ -7,6 +7,11 @@
 * Serializing Python objects to be saved to a text file and subsequently loaded back into the game
 * Use of the pickle, textwrap, collections.ordereddict, glob, os, and operator.methodcaller modules
 
+
+** Current Status **
+
+    Implementing NPC functionality and a puzzle for the demo.
+
 **Usage:**
 
     Run "main.py" in any interactive interpreter using Python 3.4 or later.
