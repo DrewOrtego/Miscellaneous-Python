@@ -8,7 +8,7 @@
 * Use of the pickle, textwrap, collections.ordereddict, glob, os, and operator.methodcaller modules
 
 
-** Current Status **
+**Current Status**
 
     Implementing NPC functionality and a puzzle for the demo.
 
