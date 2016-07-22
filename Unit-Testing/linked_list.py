@@ -1,4 +1,4 @@
-''' Create a new list, B, using list A. Each value of B 
+''' Create a new list, B, using list A. Each value of B (K)
     is determined by the value at A[K]. A[0] is always B[0],
     and B[len(B)-1] is always -1.'''
 
