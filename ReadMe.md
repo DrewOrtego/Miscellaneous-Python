@@ -8,3 +8,4 @@
 * Uses error-catching to report issues with the results
 * Automatically creates unique file names to proceed with running given duplicate files
 * Use of Regular Expressions to parse text files
+* Unit testing using the unittest module
