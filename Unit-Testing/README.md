@@ -10,7 +10,7 @@
     
 **Purpose:**
 
-    Demonstrates
+    Demonstrates use of the unittest module.
     
 **Work Flow:**
 
