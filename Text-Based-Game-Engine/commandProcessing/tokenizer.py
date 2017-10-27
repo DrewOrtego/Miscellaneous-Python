@@ -36,7 +36,7 @@ valid_patterns = (
     ['verb', 'preposition', 'noun', 'combine', 'noun'], # ex. give a fish to aquaman
     ['verb', 'noun', 'combine', 'preposition', 'noun'], # ex. give fish to the ocean
 
-    ['verb', 'preposition', 'noun', 'combine', 'preposition', 'noun'] # ex. give the fish to the ocean
+    ['verb', 'preposition', 'noun', 'combine', 'preposition', 'noun'], # ex. give the fish to the ocean
 
     # Any noun-pattern is also executable when an adjective preceeds the noun
     ['adjective', 'noun'], # ex. slippery fish
