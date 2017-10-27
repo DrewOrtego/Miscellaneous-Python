@@ -429,7 +429,7 @@ class DoorOne(Item):
         ''' Allow door to open if the booster pack has been opened'''
         if self.is_open:
             print('''The door is already open.''')
-        elif objects['Booster'].opened:
+        elif objects['Items']['Booster'].opened:
             self.is_open = True
             print('''You open the door.''')
         else:
